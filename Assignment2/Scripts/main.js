@@ -242,6 +242,7 @@ function handleTick() {
     stage.update();
 }
 function drawSlotMachine() {
+    //input the
     var slotmachine = new createjs.Bitmap("images/Slot Machine.jpg");
 
     var betPlayer = new createjs.Text("$" + playerBet.toString(), "30px Ariel", "white");
@@ -278,8 +279,7 @@ function drawSlotMachine() {
     //  var orange = new createjs.Bitmap("images/orange.jpg");
     // orange.x =;
     // orange.y =;
-
-    // int the images and adjust them to the proper lcation 
+    //int the images and adjust them to the proper location
     var spinButton = new createjs.Bitmap("images/blackbutton.png");
     spinButton.x = 105;
     spinButton.y = 376;
