@@ -242,7 +242,7 @@ function handleTick() {
     stage.update();
 }
 function drawSlotMachine() {
-    //input the
+    //input the winnings, jackpot, bet
     var slotmachine = new createjs.Bitmap("images/Slot Machine.jpg");
 
     var betPlayer = new createjs.Text("$" + playerBet.toString(), "30px Ariel", "white");
