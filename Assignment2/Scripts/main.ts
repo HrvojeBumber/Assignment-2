@@ -1,6 +1,9 @@
 ﻿// <reference path="jquery.js" />
 
 var stage;
+var betPlayer: createjs.Text;
+var jackPot;
+var currentMoney;
 var hundred = 100;
 var tooHundred = 200;
 var treeHundred = 300;
@@ -237,15 +240,17 @@ function spin(){
 //set the variable hundred to 100$ to add to the current bet
 function oHundred() {
     playerBet = 100;
-
+    betPlayer.text = "100";
 }
 //set the variable hundred to 200$ to add to the current bet
 function tHundred() {
     playerBet = 200;
+    betPlayer.text = "200";
 }
 //set the variable hundred to 300$ to add to the current bet
 function trHundred() {
     playerBet = 300;
+    betPlayer.text = "300";
 }
 
 function init() {
@@ -263,17 +268,14 @@ function drawSlotMachine() {
     var slotmachine = new createjs.Bitmap("images/Slot Machine.jpg");
 
     var betPlayer = new createjs.Text("$" + playerBet.toString(), "30px Ariel", "white");
-    betPlayer.text = playerBet.toString();
     betPlayer.x = 37;
     betPlayer.y = 129;
 
     var jackPot = new createjs.Text("$" + jackpot.toString(), "30px Ariel", "white");
-    jackPot.text = jackpot.toString();
     jackPot.x = 222;
     jackPot.y = 129;
 
     var currentMoney = new createjs.Text("$" + playerMoney.toString(), "30px Ariel", "white");
-    currentMoney.text = playerMoney.toString();
     currentMoney.x = 35;
     currentMoney.y = 313;
 
