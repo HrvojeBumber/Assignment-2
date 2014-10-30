@@ -70,6 +70,7 @@
     <Content Include="images\bar.png" />
     <Content Include="images\bells.jpg" />
     <Content Include="images\blackbutton.png" />
+    <Content Include="images\blank.png" />
     <Content Include="images\cherries.png" />
     <Content Include="images\grapes.png" />
     <Content Include="images\orange.png" />

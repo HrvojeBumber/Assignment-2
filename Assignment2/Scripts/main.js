@@ -99,42 +99,42 @@ function checkRange(value, lowerBounds, upperBounds) {
 /* When this function is called it determines the betLine results.
 e.g. Bar - Orange - Banana */
 function Reels() {
-    var betLine = [" ", " ", " "];
+    var betLine = [];
     var outCome = [0, 0, 0];
 
     for (var spin = 0; spin < 3; spin++) {
         outCome[spin] = Math.floor((Math.random() * 65) + 1);
         switch (outCome[spin]) {
             case checkRange(outCome[spin], 1, 27):
-                betLine[spin] = "blank";
+                betLine[spin] = new createjs.Bitmap("images/blank.png");
                 blanks++;
                 break;
             case checkRange(outCome[spin], 28, 37):
-                betLine[spin] = "Grapes";
+                var grape = new createjs.Bitmap("images/grapes.jpg");
                 grapes++;
                 break;
             case checkRange(outCome[spin], 38, 46):
-                betLine[spin] = "Banana";
+                var bannana = new createjs.Bitmap("images/bannana.jpg");
                 bananas++;
                 break;
             case checkRange(outCome[spin], 47, 54):
-                betLine[spin] = "Orange";
+                var orange = new createjs.Bitmap("images/orange.jpg");
                 oranges++;
                 break;
             case checkRange(outCome[spin], 55, 59):
-                betLine[spin] = "Cherry";
+                var cherrie = new createjs.Bitmap("images/cherries.jpg");
                 cherries++;
                 break;
             case checkRange(outCome[spin], 60, 62):
-                betLine[spin] = "Bar";
+                var bar = new createjs.Bitmap("images/bar.jpg");
                 bars++;
                 break;
             case checkRange(outCome[spin], 63, 64):
-                betLine[spin] = "Bell";
+                var bell = new createjs.Bitmap("images/bells.jpg");
                 bells++;
                 break;
             case checkRange(outCome[spin], 65, 65):
-                betLine[spin] = "Seven";
+                var numSeven = new createjs.Bitmap("images/7.jpg");
                 sevens++;
                 break;
         }
@@ -201,8 +201,18 @@ function spin() {
         alert("All bets must be a positive $ amount.");
     } else if (playerBet <= playerMoney) {
         spinResult = Reels();
-        fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-        $("div#result>p").text(fruits);
+
+        spinResult[0].x = 74;
+        spinResult[0].y = 211;
+
+        spinResult[1].x = 153;
+        spinResult[1].y = 211;
+
+        spinResult[2].x = 226;
+        spinResult[2].y = 211;
+
+        stage.addChild(spinResult[0], spinResult[1], spinResult[2]);
+
         determineWinnings();
         turn++;
         showPlayerStats();
@@ -260,36 +270,27 @@ function drawSlotMachine() {
     currentMoney.x = 35;
     currentMoney.y = 313;
 
+    //int the fruits/bell/number/bars
     var numSeven = new createjs.Bitmap("images/7.jpg");
     numSeven.x = 74;
     numSeven.y = 211;
 
-    //  var bannana = new createjs.Bitmap("images/bannana.jpg");
-    //  bannana.x =;
-    //  bannana.y =;
-    //  var bar = new createjs.Bitmap("images/bar.jpg");
-    //  bar.x =;
-    //  bar.y =;
-    //  var bells = new createjs.Bitmap("images/bells.jpg");
-    //  bells.x =;
-    //  bells.y =;
-    //  var cherries = new createjs.Bitmap("images/cherries.jpg");
-    // cherries.x =;
-    //  cherries.y =;
-    //   var grapes = new createjs.Bitmap("images/grapes.jpg");
-    // grapes.x =;
-    // grapes.y =;
-    //  var orange = new createjs.Bitmap("images/orange.jpg");
-    // orange.x =;
-    // orange.y =;
+    var numSeven2 = new createjs.Bitmap("images/7.jpg");
+    numSeven2.x = 153;
+    numSeven2.y = 211;
+
+    var numSeven3 = new createjs.Bitmap("images/7.jpg");
+    numSeven3.x = 226;
+    numSeven3.y = 211;
+
     //int the images and adjust them to the proper location
     var spinButton = new createjs.Bitmap("images/blackbutton.png");
     spinButton.x = 105;
     spinButton.y = 376;
 
-    var powerbutton = new createjs.Bitmap("images/powerbutton.png");
-    powerbutton.x = 10;
-    powerbutton.y = 376;
+    var powerButton = new createjs.Bitmap("images/powerbutton.png");
+    powerButton.x = 10;
+    powerButton.y = 376;
 
     var oneHundred = new createjs.Bitmap("images/100.png");
     oneHundred.x = 169;
@@ -305,15 +306,10 @@ function drawSlotMachine() {
 
     stage.addChild(slotmachine);
     stage.addChild(numSeven);
-
-    // stage.addChild(bannana);
-    // stage.addChild(bar);
-    // stage.addChild(bells);
-    // stage.addChild(cherries);
-    // stage.addChild(grapes);
-    // stage.addChild(orange);
+    stage.addChild(numSeven2);
+    stage.addChild(numSeven3);
     stage.addChild(spinButton);
-    stage.addChild(powerbutton);
+    stage.addChild(powerButton);
     stage.addChild(oneHundred);
     stage.addChild(twoHundred);
     stage.addChild(threeHundred);
