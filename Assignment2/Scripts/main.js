@@ -212,19 +212,19 @@ function spin() {
 }
 ;
 
-//set the variable hundred to 100$ to add to the current bet
+//set the variable oHundred to 100$ to add to the current bet
 function oHundred() {
     playerBet = 100;
     betPlayer.text = "100";
 }
 
-//set the variable hundred to 200$ to add to the current bet
+//set the variable tHundred to 200$ to add to the current bet
 function tHundred() {
     playerBet = 200;
     betPlayer.text = "200";
 }
 
-//set the variable hundred to 300$ to add to the current bet
+//set the variable trHundred to 300$ to add to the current bet
 function trHundred() {
     playerBet = 300;
     betPlayer.text = "300";
@@ -245,15 +245,18 @@ function drawSlotMachine() {
     //input the winnings, jackpot, bet
     var slotmachine = new createjs.Bitmap("images/Slot Machine.jpg");
 
-    var betPlayer = new createjs.Text("$" + playerBet.toString(), "30px Ariel", "white");
+    //betPlayer is the amount the player bets and the location it is placed on the slot machine
+    betPlayer = new createjs.Text("$" + playerBet.toString(), "30px Ariel", "white");
     betPlayer.x = 37;
     betPlayer.y = 129;
 
-    var jackPot = new createjs.Text("$" + jackpot.toString(), "30px Ariel", "white");
+    //jackPot is the amount the jackpot is worth and the location it is placed on the slot machine
+    jackPot = new createjs.Text("$" + jackpot.toString(), "30px Ariel", "white");
     jackPot.x = 222;
     jackPot.y = 129;
 
-    var currentMoney = new createjs.Text("$" + playerMoney.toString(), "30px Ariel", "white");
+    //currentMoney is the current money the player has and the location it is placed on the slot machine
+    currentMoney = new createjs.Text("$" + playerMoney.toString(), "30px Ariel", "white");
     currentMoney.x = 35;
     currentMoney.y = 313;
 
