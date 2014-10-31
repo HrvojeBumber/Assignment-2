@@ -1,5 +1,14 @@
 ﻿// <reference path="jquery.js" />
+/*
+ * Hrvoje Bumber
+ * last modified by: Hrvoje Bumber
+ * Last modified: Oct 30th 2014
+ * Description: make a slot machine that has a spin button, power button, fruit images displayed, bet 
+ * amount button and the result.
+ * 
+ */
 
+var clear: createjs.Container;
 var stage;
 var betPlayer: createjs.Text;
 var jackPot;
@@ -26,16 +35,6 @@ var bells = 0;
 var sevens = 0;
 var blanks = 0;
 
-/* Utility function to show Player Stats */
-function showPlayerStats() {
-    winRatio = winNumber / turn;
-    $("#jackpot").text("Jackpot: " + jackpot);
-    $("#playerMoney").text("Player Money: " + playerMoney);
-    $("#playerTurn").text("Turn: " + turn);
-    $("#playerWins").text("Wins: " + winNumber);
-    $("#playerLosses").text("Losses: " + lossNumber);
-    $("#playerWinRatio").text("Win Ratio: " + (winRatio * 100).toFixed(2) + "%");
-}
 
 /* Utility function to reset all fruit tallies */
 function resetFruitTally() {
@@ -77,7 +76,6 @@ function checkJackPot() {
 /* Utility function to show a win message and increase player money */
 function showWinMessage() {
     playerMoney += winnings;
-    $("div#winOrLose>p").text("You Won: $" + winnings);
     resetFruitTally();
     checkJackPot();
 }
@@ -85,7 +83,6 @@ function showWinMessage() {
 /* Utility function to show a loss message and reduce player money */
 function showLossMessage() {
     playerMoney -= playerBet;
-    $("div#winOrLose>p").text("You Lost!");
     resetFruitTally();
 }
 
@@ -113,31 +110,31 @@ function Reels() {
                 blanks++;
                 break;
             case checkRange(outCome[spin], 28, 37): // 15.4% probability
-                var grape = new createjs.Bitmap("images/grapes.jpg");
+                betLine[spin] = new createjs.Bitmap("images/grapes.jpg");
                 grapes++;
                 break;
             case checkRange(outCome[spin], 38, 46): // 13.8% probability
-                var bannana = new createjs.Bitmap("images/bannana.jpg");
+                betLine[spin] = new createjs.Bitmap("images/bannana.jpg");
                 bananas++;
                 break;
             case checkRange(outCome[spin], 47, 54): // 12.3% probability
-                var orange = new createjs.Bitmap("images/orange.jpg");
+                betLine[spin] = new createjs.Bitmap("images/orange.jpg");
                 oranges++;
                 break;
             case checkRange(outCome[spin], 55, 59): //  7.7% probability
-                var cherrie = new createjs.Bitmap("images/cherries.jpg");
+                betLine[spin] = new createjs.Bitmap("images/cherries.jpg");
                 cherries++;
                 break;
             case checkRange(outCome[spin], 60, 62): //  4.6% probability
-                var bar = new createjs.Bitmap("images/bar.jpg");
+                betLine[spin] = new createjs.Bitmap("images/bar.jpg");
                 bars++;
                 break;
             case checkRange(outCome[spin], 63, 64): //  3.1% probability
-                var bell = new createjs.Bitmap("images/bells.jpg");
+                betLine[spin] = new createjs.Bitmap("images/bells.jpg");
                 bells++;
                 break;
             case checkRange(outCome[spin], 65, 65): //  1.5% probability
-                var numSeven = new createjs.Bitmap("images/7.jpg");
+                betLine[spin] = new createjs.Bitmap("images/7.jpg");
                 sevens++;
                 break;
         }
@@ -209,12 +206,11 @@ function determineWinnings() {
 /* When the player clicks the spin button the game kicks off */
 
 function spin(){
-    playerBet = $("div#betEntry>input").val();
 
     if (playerMoney == 0) {
         if (confirm("You ran out of Money! \nDo you want to play again?")) {
             resetAll();
-            showPlayerStats();
+           
         }
     }
     else if (playerBet > playerMoney) {
@@ -225,22 +221,27 @@ function spin(){
     }
     else if (playerBet <= playerMoney) {
         spinResult = Reels();
+        clearReel();
 
+        //adjust the location for the images in all the blanks
         spinResult[0].x = 74;
         spinResult[0].y = 211;
 
-        spinResult[1].x = 153;
+        spinResult[1].x = 155;
         spinResult[1].y = 211;
 
         spinResult[2].x = 226;
         spinResult[2].y = 211;
 
-        stage.addChild(spinResult[0], spinResult[1], spinResult[2]);
-       
-
+        //adding them to the screen
+        clear.addChild(spinResult[0], spinResult[1], spinResult[2]);
+        
         determineWinnings();
+        jackPot.text = "$" + jackpot.toString();
+        currentMoney.text = "$" + playerMoney.toString();
+        betPlayer.text = "$" + playerBet.toString();
         turn++;
-        showPlayerStats();
+        
     }
     else {
         alert("Please enter a valid bet amount");
@@ -330,11 +331,12 @@ function drawSlotMachine() {
     var threeHundred = new createjs.Bitmap("images/300.png");
     threeHundred.x = 284;
     threeHundred.y = 376;
+    clear = new createjs.Container();
 
     stage.addChild(slotmachine);
-    stage.addChild(numSeven);
-    stage.addChild(numSeven2);
-    stage.addChild(numSeven3);
+    clear.addChild(numSeven);
+    clear.addChild(numSeven2);
+    clear.addChild(numSeven3);
     stage.addChild(spinButton);
     stage.addChild(powerButton);
     stage.addChild(oneHundred);
@@ -343,7 +345,7 @@ function drawSlotMachine() {
     stage.addChild(betPlayer);
     stage.addChild(jackPot);
     stage.addChild(currentMoney);
-    
+    stage.addChild(clear);
 
     //when spin/100/200/300/exit button clicked, function goes
     spinButton.addEventListener("click", spin);
@@ -351,4 +353,7 @@ function drawSlotMachine() {
     twoHundred.addEventListener("click", tHundred);
     threeHundred.addEventListener("click", trHundred);
 
-} 
+}
+function clearReel() {
+    clear.removeAllChildren();
+}
