@@ -355,6 +355,14 @@ function drawSlotMachine() {
     threeHundred.addEventListener("mouseout", function () {
         threeHundred.alpha = 1;
     });
+
+    powerButton.addEventListener("mouseover", function () {
+        powerButton.alpha = 0.5;
+    });
+
+    powerButton.addEventListener("mouseout", function () {
+        powerButton.alpha = 1;
+    });
 }
 
 // reel function that clears the images
