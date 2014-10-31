@@ -340,6 +340,7 @@ function drawSlotMachine() {
     threeHundred.y = 376;
     clear = new createjs.Container();
 
+    //adding the children to the stage
     stage.addChild(slotmachine);
     clear.addChild(numSeven);
     clear.addChild(numSeven2);
