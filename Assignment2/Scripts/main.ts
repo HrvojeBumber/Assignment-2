@@ -83,6 +83,7 @@ function showWinMessage() {
 /* Utility function to show a loss message and reduce player money */
 function showLossMessage() {
     playerMoney -= playerBet;
+    jackpot += playerBet;
     resetFruitTally();
 }
 
@@ -199,6 +200,7 @@ function determineWinnings() {
     else {
         lossNumber++;
         showLossMessage();
+       
     }
 
 }
@@ -264,6 +266,11 @@ function tHundred() {
 function trHundred() {
     playerBet = 300;
     betPlayer.text = "300";
+}
+// closes the game when pressed the power button
+function Close() {
+    window.close();
+    window.location.href = "thankyou.html";
 }
 
 function init() {
@@ -352,8 +359,45 @@ function drawSlotMachine() {
     oneHundred.addEventListener("click", oHundred);
     twoHundred.addEventListener("click", tHundred);
     threeHundred.addEventListener("click", trHundred);
+    powerButton.addEventListener("click", Close);
 
+    //hover over with mouse when mouse pointer is on the button
+    oneHundred.addEventListener("mouseover", function ()
+    {
+        oneHundred.alpha = 0.5;
+    });
+
+    oneHundred.addEventListener("mouseout", function () {
+        oneHundred.alpha = 1;
+    });
+    
+    twoHundred.addEventListener("mouseover", function () {
+       twoHundred.alpha = 0.5;
+    });
+
+    twoHundred.addEventListener("mouseout", function () {
+        twoHundred.alpha = 1;
+    });
+
+    threeHundred.addEventListener("mouseover", function () {
+        threeHundred.alpha = 0.5;
+    });
+
+    threeHundred.addEventListener("mouseout", function () {
+        threeHundred.alpha = 1;
+    });
+
+    powerButton.addEventListener("mouseover", function () {
+        powerButton.alpha = 0.5;
+    });
+
+    powerButton.addEventListener("mouseout", function () {
+        powerButton.alpha = 1;
+    });
+    
+    
 }
+// reel function that clears the images
 function clearReel() {
     clear.removeAllChildren();
 }
